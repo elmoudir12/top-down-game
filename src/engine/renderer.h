@@ -20,6 +20,7 @@ struct Vertex {
 struct PushConstants {
     glm::vec2 position;
     glm::vec2 scale;
+    glm::vec2 tiling;
     float rotation;
 };
 
@@ -30,7 +31,7 @@ public:
 
     void beginFrame(VkCommandBuffer cmd);
     void drawSprite(VkCommandBuffer cmd, const glm::vec2& pos, const glm::vec2& scale,
-                    float rotation, Texture* texture);
+                    float rotation, Texture* texture, const glm::vec2& tiling = {1, 1});
     void endFrame();
 
     VkDescriptorSetLayout textureSetLayout() const { return m_textureSetLayout; }

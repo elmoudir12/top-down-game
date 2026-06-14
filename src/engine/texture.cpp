@@ -17,8 +17,9 @@ Texture::Texture(VulkanCore* core, const uint32_t* pixels, uint32_t width, uint3
 }
 
 Texture::Texture(VulkanCore* core, const std::string& filename,
-                 VkDescriptorSetLayout textureSetLayout, VkDescriptorPool pool)
-    : m_core(core) {
+                 VkDescriptorSetLayout textureSetLayout, VkDescriptorPool pool,
+                 VkSamplerAddressMode addressMode)
+    : m_core(core), m_addressMode(addressMode) {
     int w, h, channels;
     unsigned char* data = stbi_load(filename.c_str(), &w, &h, &channels, STBI_rgb_alpha);
     if (!data) {
@@ -113,9 +114,9 @@ void Texture::createTextureSampler() {
     info.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
     info.magFilter = VK_FILTER_NEAREST;
     info.minFilter = VK_FILTER_NEAREST;
-    info.addressModeU = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-    info.addressModeV = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
-    info.addressModeW = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
+    info.addressModeU = m_addressMode;
+    info.addressModeV = m_addressMode;
+    info.addressModeW = m_addressMode;
     info.anisotropyEnable = VK_FALSE;
     info.compareOp = VK_COMPARE_OP_ALWAYS;
     info.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;

@@ -375,7 +375,7 @@ void Renderer::beginFrame(VkCommandBuffer cmd) {
 }
 
 void Renderer::drawSprite(VkCommandBuffer cmd, const glm::vec2& pos, const glm::vec2& scale,
-                          float rotation, Texture* texture) {
+                          float rotation, Texture* texture, const glm::vec2& tiling) {
     vkCmdBindPipeline(cmd, VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline);
 
     VkDeviceSize offsets[] = {0};
@@ -392,6 +392,7 @@ void Renderer::drawSprite(VkCommandBuffer cmd, const glm::vec2& pos, const glm::
     PushConstants pc{};
     pc.position = pos;
     pc.scale = scale;
+    pc.tiling = tiling;
     pc.rotation = rotation;
     vkCmdPushConstants(cmd, m_pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT,
                        0, sizeof(PushConstants), &pc);

@@ -70,8 +70,11 @@ int main() {
                     renderer.textureSetLayout(), renderer.descriptorPool());
     Texture houseTex(&core, findAsset("medieval_house.png"),
                      renderer.textureSetLayout(), renderer.descriptorPool());
+    Texture grassTex(&core, findAsset("grass.png"),
+                     renderer.textureSetLayout(), renderer.descriptorPool(),
+                     VK_SAMPLER_ADDRESS_MODE_REPEAT);
 
-    Game game(&wizardTex, &treeTex, &houseTex);
+    Game game(&wizardTex, &treeTex, &houseTex, &grassTex);
 
     auto lastTime = std::chrono::high_resolution_clock::now();
 
@@ -90,7 +93,7 @@ int main() {
             renderer.beginFrame(cmd);
 
             for (auto& spr : game.renderables())
-                renderer.drawSprite(cmd, spr.position, spr.scale, spr.rotation, spr.texture);
+                renderer.drawSprite(cmd, spr.position, spr.scale, spr.rotation, spr.texture, spr.tiling);
 
             renderer.endFrame();
             core.endFrame();

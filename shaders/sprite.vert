@@ -12,10 +12,12 @@ layout(set = 0, binding = 0) uniform SpriteUBO {
 layout(push_constant) uniform PushConstants {
     vec2 position;
     vec2 scale;
+    vec2 tiling;
+    float rotation;
 } push;
 
 void main() {
     vec2 worldPos = inPosition * push.scale + push.position;
     gl_Position = ubo.projection * vec4(worldPos, 0.0, 1.0);
-    fragTexCoord = inTexCoord;
+    fragTexCoord = inTexCoord * push.tiling;
 }

@@ -12,7 +12,8 @@ public:
     Texture(VulkanCore* core, const uint32_t* pixels, uint32_t width, uint32_t height,
             VkDescriptorSetLayout textureSetLayout, VkDescriptorPool pool);
     Texture(VulkanCore* core, const std::string& filename,
-            VkDescriptorSetLayout textureSetLayout, VkDescriptorPool pool);
+            VkDescriptorSetLayout textureSetLayout, VkDescriptorPool pool,
+            VkSamplerAddressMode addressMode = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE);
     ~Texture();
 
     uint32_t width() const { return m_width; }
@@ -37,4 +38,5 @@ private:
 
     uint32_t m_width;
     uint32_t m_height;
+    VkSamplerAddressMode m_addressMode = VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE;
 };

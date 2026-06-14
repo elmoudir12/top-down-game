@@ -2,9 +2,10 @@
 #include "../engine/input.h"
 #include "../engine/texture.h"
 
-Game::Game(Texture* wizardTex, Texture* treeTex, Texture* houseTex) {
-    m_heroIndex = 0;
+Game::Game(Texture* wizardTex, Texture* treeTex, Texture* houseTex, Texture* grassTex) {
+    m_heroIndex = 1;
 
+    m_renderables.push_back({glm::vec2(480, 320), glm::vec2(960, 640), 0.0f, grassTex, {15, 10}});
     m_renderables.push_back({glm::vec2(480, 320), glm::vec2(42, 80), 0.0f, wizardTex});
 
     m_renderables.push_back({glm::vec2(150, 150), glm::vec2(104, 98), 0.0f, treeTex});
