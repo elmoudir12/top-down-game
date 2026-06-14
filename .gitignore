@@ -1,0 +1,9 @@
+build_release/
+build_debug/
+assets/test_orient.png
+*.spv
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
